@@ -1,9 +1,9 @@
-const GAME_TIME = 9;
-let score = 0;
+const GAME_TIME = 9; // 진행할 시간 설정
+let score = 0;  // 점수 기본값 설정
 let time = GAME_TIME;
 let isPlaying = false;
 let timeInterval;
-let words = [];
+let words = []; // 단어 목록은 배열 형태로 출력되니 대괄호 사용한 것인가?
 let checkInterval;
 
 const wordInput = document.querySelector('.word-input');
@@ -12,8 +12,8 @@ const scoreDisplay = document.querySelector('.score');
 const timeDisplay = document.querySelector('.time');
 const button = document.querySelector('.button')
 
-init();
-function init(){
+init();  // 이건 왜 하는 거지?
+function init(){  // 게임 시작할 때 필요한 건가?
   buttonchange('게임 로딩중...');
   getWords()
   wordInput.addEventListener('input', checkMatch)
@@ -29,25 +29,25 @@ function run () {
   time = GAME_TIME;
   wordInput.focus();
   scoreDisplay.innerText = 0;
-  timeInterval = setInterval(countDown, 1000);
+  timeInterval = setInterval(countDown, 1000);  // 이 부분 잘 모르겠다.
   checkInterval = setInterval(checkStatus, 50)
-  buttonchange("게임중")
+  buttonchange("게임중") // button과 무슨 차이가 있을까?
 }
 
 function checkStatus(){
     if(!isPlaying && time === 0){
           buttonchange("게임시작")
-          clearInterval(checkInterval)
+          clearInterval(checkInterval)  //check와 clear의 차이를 좀 더 자세히 보쟈!
     }
 }
 
 //단어불러오기
 function getWords() {
-  axios.get('https://random-word-api.herokuapp.com/word?number=100')
+  axios.get('https://random-word-api.herokuapp.com/word?number=100') // word-api를 검색해서 cdn 형태를 다운
       .then(function (response) {
         
           response.data.forEach((word) => {
-            if(word.length < 10){
+            if(word.length < 10){             // 10자 이하의 단어만 출력시키자.
               words.push(word);
             }
           })
